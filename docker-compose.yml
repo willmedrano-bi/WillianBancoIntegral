@@ -1,0 +1,29 @@
+services:
+  proxy:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: eks-proxy
+    ports:
+      - "80:80"
+    networks:
+      - red-eks2
+    restart: unless-stopped
+
+  app:
+    build:
+      context: ./APP
+      dockerfile: dockerfile_dev
+    container_name: eks-app
+    expose:
+      - "3000"
+    volumes:
+      - ./APP:/app
+      - /app/node_modules
+    networks:
+      - red-eks2
+    restart: unless-stopped
+
+networks:
+  red-eks2:
+    external: true
