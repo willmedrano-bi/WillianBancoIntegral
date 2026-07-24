@@ -6,3 +6,5 @@ app = Flask(__name__)
 
 def home():
 	return "!Hola desde Docker + Python¡"
+	
+app.run(host="0.0.0.0", port=5000)
